@@ -1,0 +1,58 @@
+<public-module data-bind="style : { width : width, height : height }"><div class="navbar navbar-hype navbar-twitch" data-bind="visible:menu.isVisible" role="navigation"><div class="container"><div class="navbar-header"><button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button> <button class="btn nav-brand btn-xs navbar-twitch-toggle" data-bind="events:{ click:onClickToggle }" type="button"><span class="glyphicon" data-bind="twitchToggle: stateButton" data-open-state="glyphicon-chevron-right nav-open" data-close-state="glyphicon-chevron-left nav-close"></span></button></div><div class=""><ul class="menu nav navbar-nav" data-role="listview" data-template="menuTemplate" data-autobind="true" data-selectable="false" data-source="App.Model.Public.menu.data"></ul></div><!--/.nav-collapse --></div></div><!-- STREET --><div class="street col-xs-2 col-sm-2 col-md-2 col-lg-2" data-bind="visible:taxi.isVisible"><div class="vertical-line"></div></div><!-- Para que funcione correctamente el componente fullpage, se debe dejar como primer div en la vista el superContainer --><div data-role="listview" data-template="parallaxTemplate" data-selectable="false" data-bind="source:parallax.source.data(),
+                    visible:parallax.isVisible"></div><!-- CLOUDS --><div class="cloud cloud-clone"></div><!-- TAXI --><div class="taxi" data-bind="style : { backgroundImage : taxi.src,
+                              backgroundSize : scale,
+                              width : taxi.width, 
+                              height : taxi.height  
+                            }, 
+                    visible : taxi.isVisible"></div><!-- HOME --><div class="row" data-bind="visible:start.isVisible"><div class="col-md-8 col-md-offset-2"><div class="start"><div data-bind="html:start.html"></div><a href="#welcome"><i class="fa fa-angle-double-down fa-4x"></i></a></div></div></div><!-- DETAIL SECTION img[data-bind="attr:{ src : }"]--><div class="slide" data-bind="visible:detail.isVisible"><header><h1><i data-bind="attr:{ class : selectedItem.icon }"></i> <small data-bind="text:selectedItem.label"></small></h1><img class="img-responsive" data-bind="attr:{ src: detail.cloud },
+                        style : { width : width }"></header><div class="col-md-7 col-sm-6 img-block bounceInLeft"><img class="img-responsive" data-bind="attr:{src:selectedItem.thumbnails}"></div><div class="col-md-5 col-sm-6 mb-panel bounceInRight"><div data-bind="html:selectedItem.content"></div><a data-bind="events:{ click: onBack }"><i class="fa fa-angle-double-left fa-4x"></i></a></div></div><!-- CONTACTENOS FORM --><div class="row clearfix contact" data-bind="visible: contact.isVisible"><div class="col-xs-6 col-sm-6 col-md-6 col-lg-6"><!-- NOTIFICATION --><div class="alert" data-bind="notification:response.state" data-success="alert-info" data-error="alert-danger" role="alert" style="display:none"><small data-bind="text:response.text"></small></div><form role="form" data-toggle="validator"><div class="form-group"><label for="inputNames">Tu nombre</label><input type="text" class="form-control" id="inputNames" data-bind="value:contact.names" data-toggle="tooltip" data-placement="right" title="EL nombre debe componerse de 2 palabras" required></div><div class="form-group"><label for="inputEmail" class="control-label">Tu correo eletrónico</label><input type="email" class="form-control" id="inputEmail" name="email" data-bind="value:contact.email,
+                                 events: { change: onChangeEmail }" data-toggle="tooltip" data-placement="right" data-value-update="keyup" pattern="[a-zA-Z0-9.+_-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9.-]+" title="El campo es obligatorio, debe tener @ y un dominio ej: tunick@tudominio.com" required></div><div class="form-group"><label for="textAreaMessage">¿Como te podemos ayudar?</label><textarea id="textAreaMessage" class="form-control" rows="3" data-bind="value:contact.message" data-toggle="tooltip" data-placement="right" title="El campo es obligatorio" required>
+               </textarea></div><button class="btn btn-primary" data-bind="events:{ click : onContact }">Enviar</button><p class="help-block contactData"><i class="fa fa-mobile"></i> 3123027934 - 3186992147<br><i class="fa fa-google-plus-square"></i> info@hypeideas.co</p></form></div></div><!-- SOCIAL NETWORKS --><div class="socialNetworks" data-bind="visible: socialNetworks.isVisible"><div data-bind="style : { background : socialNetworks.facebook.src,
+                                  backgroundSize : scale,
+                                  width : socialNetworks.width, 
+                                  height : socialNetworks.height  
+                                  }" onclick="window.open(App.Model.Public.socialNetworks.facebook.url)"></div><div data-bind="style : { background : socialNetworks.twitter.src,
+                                  backgroundSize : scale,
+                                  width : socialNetworks.width, 
+                                  height : socialNetworks.height  
+                                  }" onclick="window.open(App.Model.Public.socialNetworks.twitter.url)"></div><div data-bind="style : { background : socialNetworks.instagram.src,
+                                  backgroundSize : scale,
+                                  width : socialNetworks.width, 
+                                  height : socialNetworks.height  
+                                  }" onclick="window.open(App.Model.Public.socialNetworks.instagram.url)"></div></div><!-- MODAL --><div class="modal fade" id="appModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content cloud"><div class="modal-header"><h4 class="modal-title" id="modalLabel" data-bind="text:modal.title"></h4><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button></div><div class="modal-body"><div data-bind="html:modal.body"></div></div><div class="shadow"></div></div></div><!------------------------------- [ TEMPLATES ] -------------------------------------------><!-- MENU TEMPLATE --><script id="menuTemplate" type="text/x-kendo-tmpl"><li>
+            <a href="${data.href}">
+                <span class="small-nav" 
+                      data-role="tooltip"
+                      data-auto-hide="true"
+                      data-position="left"
+                      title="${ data.label }"> 
+                    <span class="${ data.icon }"></span> 
+                </span>
+                <span class="full-nav"> ${ data.label } </span>
+            </a>
+        </li></script><!-- PARALLAX TEMPLATE --><script id="parallaxTemplate" type="text/x-kendo-tmpl"><div class="background"
+             id="${ data.anchor }"
+             style="background:url('${ data.background }') 0 0 no-repeat;
+            ">                      
+
+                 # if ( !_.isNull( data.element ) ) { #  
+                  
+                     <div class="elements"
+                          style="background:url('${ data.element }') no-repeat;"
+                          >                        
+                     </div>                    
+                          
+                # }; #    
+                # if ( !_.isNull( data.welcome ) ) { #  
+                 <center>
+                     <div class="welcome">
+                        <img id="img-${ data.anchor }" 
+                             src="${ data.welcome }" 
+                             class="img-responsive"/> 
+                     </div> 
+                    
+                   </center>            
+                # }; #   
+           
+           
+        </div></script></div></public-module>
